@@ -10,6 +10,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      TESTS_PATH: Tests/bin/Release/net8.0
 
     steps:
       - uses: actions/checkout@v4
@@ -27,11 +29,11 @@ jobs:
 
       - name: Install Playwright
         shell: pwsh
-        run: .\Tests\bin\Release\net8.0\playwright.ps1 install --with-deps
+        run: .\${{ env.TESTS_PATH }}\playwright.ps1 install --with-deps
 
       - name: Run Tests
         run: >
-          dotnet test Tests/bin/Debug/net8.0/Tests.dll 
+          dotnet test ${{ env.TESTS_PATH }}/Tests.dll 
           --logger "GitHubActions;summary.includePassedTests=true;summary.includeSkippedTests=true"
 
 
@@ -40,5 +42,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: Tests/bin/Release/net8.0/TestResults
+          path: ${{ env.TESTS_PATH }}/TestResults
           retention-days: 7
