@@ -1,20 +1,24 @@
 ﻿using Microsoft.Playwright;
+using Serilog;
 
 namespace Common.Playwright.Browser;
 
 public class PlaywrightBrowserFactory
 {
     private readonly PlaywrightConfigurationData _config;
+    private readonly ILogger _logger;
 
-    public PlaywrightBrowserFactory(PlaywrightConfigurationData config)
+    public PlaywrightBrowserFactory(PlaywrightConfigurationData config, ILogger logger)
     {
         _config = config;
+        _logger = logger;
     }
 
     public async Task<IBrowser> Create(IPlaywright playwright)
     {
         var browserType = Environment.GetEnvironmentVariable("PlaywrightBrowserName") ?? "chromium";
 
+        _logger.Information("Initializing {BrowserType} playwright browser", browserType);
         var launchOptions = new BrowserTypeLaunchOptions
         {
             Headless = _config.Headless,
