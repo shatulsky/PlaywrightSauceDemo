@@ -1,0 +1,25 @@
+Assignment:
+Playwright Tests with GitHub Actions in .NET/C# for https://www.saucedemo.com/**
+
+Objective:
+Develop a comprehensive set of Playwright tests for the https://www.saucedemo.com/ website using .NET and C#. Additionally, set up a GitHub Actions workflow to execute these tests in parallel, generating a detailed test report published as an artifact.
+
+Requirements:
+1. Write Playwright Tests in C# for Saucedemo:
+   - Develop Playwright tests using C# for interactions on the Saucedemo website, covering scenarios like logging in, adding items to the cart, and checking out.
+2. Create a GitHub Repository:
+   - Establish a public GitHub repository to host your Playwright tests and associated files, utilizing C# as the primary language for the project.
+3. GitHub Actions Workflow:
+   - Create a GitHub Actions workflow (`/.github/workflows/playwright_tests.yml`) with the following key features:
+   - Utilize parallel jobs for concurrent test execution.
+    - Configure the environment for each job with the necessary dependencies.
+    - Checkout the repository code.
+    - Execute Playwright tests using a .NET test runner (NUnit).
+    - Generate a comprehensive test report.
+4. Test Report:
+ - Configure the workflow to generate a detailed test report, utilizing a test framework's built-in reporting (e.g., NUnit HTML reports) or integrating an external reporting tool.
+5. Artifact Publishing:
+   - Publish the test report as an artifact in GitHub Actions, ensuring easy accessibility after each workflow run.
+
+Submission:
+Please provide the GitHub repository link and include any necessary instructions for reviewing the test results.
