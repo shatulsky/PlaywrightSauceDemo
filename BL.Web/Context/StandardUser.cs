@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using BL.Web.Data;
+using Common.Infrastructure;
 using Common.Playwright.Browser;
 using Common.Playwright.Browser.Context;
 using Common.Playwright.Browser.Context.Contracts;
@@ -11,18 +12,21 @@ public class StandardUser : BrowserContextCreationStrategy
 {
     private readonly PlaywrightConfigurationData _playwrightConfiguration;
     private readonly UserCredentialsProvider _userCredentialsProvider;
+    private readonly IScopeIdentifier _scopeIdentifier;
 
     public StandardUser(PageObjectsFactory pageObjectsFactory,
         PlaywrightConfigurationData playwrightConfiguration,
         PlaywrightLifecycleManager lifecycleManager,
-        UserCredentialsProvider userCredentialsProvider)
+        UserCredentialsProvider userCredentialsProvider,
+        IScopeIdentifier scopeIdentifier)
         : base(pageObjectsFactory, playwrightConfiguration, lifecycleManager)
     {
         _playwrightConfiguration = playwrightConfiguration;
         _userCredentialsProvider = userCredentialsProvider;
+        _scopeIdentifier = scopeIdentifier;
     }
 
-    protected override string FileName => nameof(StandardUser);
+    protected override string FileName => nameof(StandardUser) + _scopeIdentifier.Identifier;
 
     public override void BeforeContextCreation()
     {

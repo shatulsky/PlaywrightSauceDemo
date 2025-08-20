@@ -30,7 +30,11 @@ jobs:
         run: .\Tests\bin\Release\net8.0\playwright.ps1 install --with-deps
 
       - name: Run Tests
-        run: dotnet test 
+        run: >
+          dotnet test Tests\bin\Debug\net8.0\Tests.dll 
+          --configuration Release
+          --logger "GitHubActions;summary.includePassedTests=true;summary.includeSkippedTests=true"
+
 
       - name: Upload test results
         if: always()
