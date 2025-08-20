@@ -26,3 +26,5 @@ For local debugging - create `appsettings.Development.json` file in the built di
   }
 }
 ```
+
+To view report trace files - use https://trace.playwright.dev/
