@@ -8,7 +8,41 @@ on:
   workflow_dispatch:
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      TESTS_PATH: Tests/bin/Release/net8.0
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Cache NuGet
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            nuget-${{ runner.os }}-
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Upload build output
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: ${{ env.TESTS_PATH }}
+          retention-days: 3
+
   test:
+    needs: build
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -20,7 +54,11 @@ jobs:
       PlaywrightBrowserName: ${{ matrix.browser }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Download build output
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: ${{ env.TESTS_PATH }}
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -36,7 +74,7 @@ jobs:
       - name: Install Playwright
         shell: pwsh
         run: |
-          & "${{ env.TESTS_PATH }}/playwright.ps1" install --with-deps
+          & "${{ env.TESTS_PATH }}/playwright.ps1" install --with-deps ${{ matrix.browser }}
 
       - name: Run Tests (${{ matrix.browser }})
         run: >
