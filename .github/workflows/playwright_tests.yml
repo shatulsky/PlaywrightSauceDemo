@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TESTS_PATH: Tests/bin/Release/net8.0
-      RESULTS_DIR: Tests/bin/Release/net8.0/test-results
 
     steps:
       - uses: actions/checkout@v4
@@ -36,12 +35,11 @@ jobs:
         run: >
           dotnet test ${{ env.TESTS_PATH }}/Tests.dll 
           --logger "GitHubActions;summary.includePassedTests=true;summary.includeSkippedTests=true"
-          --results-directory "${{ env.RESULTS_DIR }}"
 
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: ${{ env.TESTS_PATH }}/TestResults
+          path: ${{ env.TESTS_PATH }}/test-results
           retention-days: 7
