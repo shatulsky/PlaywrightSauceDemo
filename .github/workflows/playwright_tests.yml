@@ -27,12 +27,10 @@ jobs:
 
       - name: Install Playwright
         shell: pwsh
-        run: |
-          .\Tests\bin\Release\net8.0\playwright.ps1 install
+        run: .\Tests\bin\Release\net8.0\playwright.ps1 install --with-deps
 
       - name: Run Tests
-        run: |
-          dotnet test
+        run: dotnet test
 
       - name: Upload test results
         if: always()

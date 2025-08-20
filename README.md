@@ -8,7 +8,7 @@
 1. Clone the repository: `git clone <repository-url>`
 2. Navigate to the project directory: `cd <project-directory>`
 3. Build the project: `dotnet build`
-4. Install required browsers `pwsh /Tests/bin/Debug/net8.0/playwright.ps1 install`
+4. Install required browsers `pwsh /Tests/bin/Debug/net8.0/playwright.ps1 install --with-deps`
 
 ## Running Tests
 
