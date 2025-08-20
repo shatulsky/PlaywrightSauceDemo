@@ -27,6 +27,8 @@ public class StandardUser : BrowserContextCreationStrategy
     public override void BeforeContextCreation()
     {
         var filePath = GetContextFilePath();
+        Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
+
         var username = _userCredentialsProvider.GetCredentials(ETestUserType.Standard).Username;
         var host = new Uri(_playwrightConfiguration.BaseUrl).Host;
         var data = new ContextData

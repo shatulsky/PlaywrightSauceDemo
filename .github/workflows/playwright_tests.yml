@@ -30,12 +30,12 @@ jobs:
         run: .\Tests\bin\Release\net8.0\playwright.ps1 install --with-deps
 
       - name: Run Tests
-        run: dotnet test
+        run: dotnet test 
 
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: TestResults/
+          path: Tests/bin/Release/net8.0/TestResults
           retention-days: 7
