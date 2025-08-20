@@ -28,7 +28,7 @@ jobs:
       - name: Install Playwright
         shell: pwsh
         run: |
-          pwsh "bin/Release/net8.0/playwright.ps1" install
+          .\bin\Release\net8.0\playwright.ps1 install
 
       - name: Run Tests
         run: |

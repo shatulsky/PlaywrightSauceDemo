@@ -1,7 +1,6 @@
 # Getting Started
 
 ## Prerequisites
-- 
 - .NET 8.0
 
 ## Installation
