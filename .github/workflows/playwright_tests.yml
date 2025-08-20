@@ -36,7 +36,6 @@ jobs:
           dotnet test ${{ env.TESTS_PATH }}/Tests.dll 
           --logger "GitHubActions;summary.includePassedTests=true;summary.includeSkippedTests=true"
 
-
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
