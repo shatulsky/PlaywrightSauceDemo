@@ -31,8 +31,7 @@ jobs:
 
       - name: Run Tests
         run: >
-          dotnet test Tests\bin\Debug\net8.0\Tests.dll 
-          --configuration Release
+          dotnet test Tests/bin/Debug/net8.0/Tests.dll 
           --logger "GitHubActions;summary.includePassedTests=true;summary.includeSkippedTests=true"
 
 
